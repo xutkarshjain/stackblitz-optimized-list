@@ -1,0 +1,48 @@
+.category-container {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+.list-item {
+    background-color: white;
+    height: 40px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #337ab7;
+    margin: 2px;
+    border: none;
+    display: flex;
+    gap: 10px;
+
+    &:hover,
+    &.selected {
+        color: white;
+        border-radius: 6px;
+
+        .badge {
+            background-color: white;
+            color: #337ab7;
+        }
+        & {
+            background-color: #3379b7a2;
+        }
+
+        &.selected {
+            background-color: #337ab7;
+        }
+    }
+
+    .badge {
+        background-color: gray;
+        color: white;
+        margin-right: auto;
+    }
+}
+
+.example-viewport {
+    height: calc(100vh - 200px);
+    width: 100%;
+}
+
+.example-item {
+    height: 50px;
+}

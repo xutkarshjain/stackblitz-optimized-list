@@ -1,0 +1,16 @@
+<div class="content-holder">
+  @if (appletList.length === 0) {
+  <p class="text-center text-secondary mt-5">No Applet found</p>
+  }
+  <cdk-virtual-scroll-viewport
+    itemSize="50"
+    class="applet-container example-viewport"
+  >
+    <div
+      *cdkVirtualFor="let applet of appletList"
+      class="applet p-3 rounded justify-content-between align-items-center"
+    >
+      {{ applet.name }}
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>

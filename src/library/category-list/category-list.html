@@ -1,0 +1,16 @@
+<div class="list-group mt-3 category-container" #categoryListRef>
+  @if (categoryList.length === 0) {
+  <p class="text-center text-secondary mt-5">No Category found</p>
+  }
+  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+    <div
+      *cdkVirtualFor="let category of categoryList"
+      class="list-group-item justify-content-between align-items-center list-item"
+      [class.selected]="category.name === selectedCategory"
+      [attr.data-category]="category.name"
+    >
+      {{ category.name }}
+      <span class="badge rounded-pill">{{ category.appletCount }}</span>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>

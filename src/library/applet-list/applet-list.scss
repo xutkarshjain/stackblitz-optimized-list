@@ -1,0 +1,25 @@
+.applet-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+    gap: 15px;
+    .applet {
+        background-color: #f5f5f5;
+        color: black;
+        border: 1px solid #ebebeb;
+        display: flex;
+        margin-bottom: 20px;
+        height: 58px;
+    }
+}
+
+.example-viewport {
+    height: calc(100vh - 180px);
+    width: 100%;
+}
+
+.example-item {
+    height: 50px;
+}
