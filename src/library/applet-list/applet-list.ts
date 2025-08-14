@@ -1,26 +1,38 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { LibData } from "../services/lib-data";
 import { Applet } from "../models/applet";
 import { ScrollingModule } from "@angular/cdk/scrolling";
+import { Subject, switchMap, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-applet-list",
   imports: [ScrollingModule],
   templateUrl: "./applet-list.html",
-  styleUrl: "./applet-list.scss",
+  styleUrls: ["./applet-list.scss"],
 })
-export class AppletList implements OnInit {
-  constructor(public libData: LibData) {}
+export class AppletList implements OnInit, OnDestroy {
   appletList: Applet[] = [];
-  loading: boolean = false;
+  loading = false;
+  private destroy$ = new Subject<void>();
+
+  constructor(public libData: LibData) {}
 
   ngOnInit(): void {
-    this.libData.getSelectedCategory().subscribe((selectedCategory: string) => {
-      this.libData
-        .fetchAppletsByCategory(selectedCategory)
-        .subscribe((applets: Applet[]) => {
-          this.appletList = applets;
-        });
-    });
+    this.libData
+      .getSelectedCategory()
+      .pipe(
+        switchMap((selectedCategory: string) =>
+          this.libData.fetchAppletsByCategory(selectedCategory)
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((applets: Applet[]) => {
+        this.appletList = applets;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
